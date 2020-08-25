@@ -17,9 +17,14 @@ export default class Home extends Component {
     selectedItemIndex: null,
   };
 
+  getContacts = () =>{
+    return API.getContacts().then(contacts => this.setState({list:contacts.data}))
+
+  }
 
   componentDidMount(){
-    API.getContacts().then(contacts => this.setState({list:contacts.data}))
+    // API.getContacts().then(contacts => this.setState({list:contacts.data}))
+    this.getContacts()
   }
 
   handleSignIn = () => {
@@ -51,9 +56,21 @@ export default class Home extends Component {
 
   handleDelete = (allList) => {
     const filtered = this.state.list.filter((ls) => ls !== allList);
+    console.log('click');
+    // API.removeContact()
     this.setState({
       list: filtered,
     });
+  };
+
+  handleDeleteAPI = (item) => {
+   
+    console.log(item.username);
+    API.removeContact(item.username).then((resp) => {
+			if (resp.status) {
+				this.getContacts();
+			}
+		});
   };
 
   handleEdit = (input, index) => {
@@ -112,7 +129,7 @@ export default class Home extends Component {
                       EDIT
                     </button>
                     <button
-                      onClick={() => this.handleDelete(item)}
+                      onClick={() => this.handleDeleteAPI(item)}
                       style={btnDel}
                     >
                       DELETE

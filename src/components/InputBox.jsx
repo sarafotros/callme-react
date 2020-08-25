@@ -5,7 +5,7 @@ export default class InputBox extends Component {
     error: false,
     inputText: '',
   };
-  render() {
+  render(props) {
     const {
       onChangeProps,
       regex,
