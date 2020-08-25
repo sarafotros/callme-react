@@ -16,10 +16,7 @@ export default class SignInForm extends Component {
 
   handleSubmitForm = (e) => {
     e.preventDefault();
-    {
-      !this.props.editMode
-        ? this.props.handleSignIn()
-        : this.props.handleUpdate();
+    {!this.props.editMode? this.props.handleSignIn(): this.props.handleUpdate()
     }
   };
 

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
+import API from '../API'
 import styles from "./styles";
 import SignInForm from "./SignInForm";
 
 export default class Home extends Component {
   initialItem = {
-    username: "",
-    email: "",
-    phone: "",
+    username: '',
+    email: '',
+    phone:'',
   };
 
   state = {
@@ -16,7 +17,15 @@ export default class Home extends Component {
     selectedItemIndex: null,
   };
 
+
+  componentDidMount(){
+    API.getContacts().then(contacts => this.setState({list:contacts.data}))
+  }
+
   handleSignIn = () => {
+    API.submitObj(this.state.item).then(json =>{
+      console.log(json);
+    })
     this.setState({
       list: [...this.state.list, this.state.item],
       // list: [...prevState.list, prevState.item],
