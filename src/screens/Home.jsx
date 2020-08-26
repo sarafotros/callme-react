@@ -39,20 +39,28 @@ export default class Home extends Component {
     });
   };
 
-  handleUpdate = () => {
-    // const newList = [
-    //   ...this.state.list.slice(0, this.state.selectedItemIndex),
-    //   this.state.item,
-    //   ...this.state.list.slice(this.state.selectedItemIndex + 1),
-    // ];
+  handleUpdate = (input) => {
+    console.log(input);
     let newList = this.state.list;
     newList[this.state.selectedItemIndex] = this.state.item;
     this.setState({
-      list: newList,
-      item: this.initialItem,
+      // list: newList,
+      // item: this.initialItem,
       editMode: false,
     });
+    let id = input._id
+    API.editContact(id).then(()=>{
+      this.getContacts()
+    })
   };
+
+  handleUpdateAPI = (input,index)=>{
+    let id = input._id
+    console.log(input._id);
+    API.editContact(input, id).then(()=>{
+      this.getContacts()
+    })
+  }
 
   handleDelete = (allList) => {
     const filtered = this.state.list.filter((ls) => ls !== allList);
@@ -65,7 +73,7 @@ export default class Home extends Component {
 
   handleDeleteAPI = (item) => {
    
-    console.log(item.username);
+    // console.log(item._id);
     API.removeContact(item.username).then((resp) => {
 			if (resp.status) {
 				this.getContacts();
@@ -74,12 +82,14 @@ export default class Home extends Component {
   };
 
   handleEdit = (input, index) => {
+    console.log(input._id);
     this.setState({
       item: input,
       editMode: true,
       selectedItemIndex: index,
     });
   };
+
 
   changeItemsProps = ({ nam, val }) => {
     let newItem = { ...this.state.item, [nam]: val };
@@ -100,7 +110,7 @@ export default class Home extends Component {
             item={{ ...this.state.item }}
             changeItemsProps={this.changeItemsProps}
             editMode={this.state.editMode}
-            handleUpdate={this.handleUpdate}
+            handleUpdate={()=>this.handleUpdate(this.state.item)}
           />
         </div>
         <div>contacts:</div>
