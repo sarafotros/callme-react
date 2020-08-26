@@ -24,8 +24,9 @@ const deleteAPI = url =>(
     }).then(resp => resp.json()) 
 )
 	
-const patchAPI = (url, obj) => {
- return fetch(url, {
+const patchAPI = ( url, obj) => {
+    console.log(url);
+  return  fetch(url, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
@@ -46,6 +47,6 @@ const submitObj = (body) => {
 
 const removeContact = obj => deleteAPI(contactUrl + obj);
 
-const editContact = (id) => patchAPI(contactUrl + id)
+const editContact = (obj, id) => patchAPI(contactUrl + id, obj)
 
 export default { getContacts, submitObj,removeContact, editContact}

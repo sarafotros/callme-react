@@ -41,26 +41,20 @@ export default class Home extends Component {
 
   handleUpdate = (input) => {
     console.log(input);
+    let id = input._id
+    console.log(id);
     let newList = this.state.list;
     newList[this.state.selectedItemIndex] = this.state.item;
     this.setState({
       // list: newList,
-      // item: this.initialItem,
+      item: this.initialItem,
       editMode: false,
     });
-    let id = input._id
-    API.editContact(id).then(()=>{
-      this.getContacts()
-    })
-  };
-
-  handleUpdateAPI = (input,index)=>{
-    let id = input._id
-    console.log(input._id);
+    
     API.editContact(input, id).then(()=>{
       this.getContacts()
     })
-  }
+  };
 
   handleDelete = (allList) => {
     const filtered = this.state.list.filter((ls) => ls !== allList);
@@ -83,6 +77,7 @@ export default class Home extends Component {
 
   handleEdit = (input, index) => {
     console.log(input._id);
+    console.log('click');
     this.setState({
       item: input,
       editMode: true,
