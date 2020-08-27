@@ -1,4 +1,5 @@
-const baseUrl = 'http://localhost:9090/addressbookservice';
+// const baseUrl = 'http://localhost:9090/addressbookservice';
+const baseUrl = 'https://protected-springs-58152.herokuapp.com/addressbookservice'
 
 const contactUrl = baseUrl + '/contacts/';
 
